@@ -1,81 +1,80 @@
 <script setup>
+
+import { onMounted } from 'vue'
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
+import Home from './components/Home.vue'
+import Navigation from './components/Navigation.vue'
+
+import ScrollToTop from './components/icons/ScrollToTop.vue'
+
+onMounted(() => {
+    let body = document.body
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    // dark mode
+    body.setAttribute("data-theme", "dark");
+  } else {
+    body.setAttribute("data-theme", "light");
+  }
+})
+
 </script>
 
-<template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
+<template id="top">
+  <Navigation />
 
   <main>
-    <TheWelcome />
+    <Home />
   </main>
+
+  <div class="scrollToTop">
+    <a href="#top">
+      <ScrollToTop />
+    </a>
+  </div>
+  <div class="canvas">
+  </div>
 </template>
 
 <style>
-@import './assets/base.css';
+@import './assets/css/base.css';
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-
-  font-weight: normal;
+body {
+  height: 500vh;
 }
 
-header {
-  line-height: 1.5;
+.canvas {
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+
+  background-image: url('./assets/img/hero-banner.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.scrollToTop {
+  position: fixed;
+  bottom: 10vh;
+  right: 10vh;
+
+  box-shadow: 5px 5px 1px rgba(174, 174, 192, 50%);
+
+  background: var(--main-color);
+  border-radius: var(--radius);
+
+  width: fit-content;
+  height: fit-content;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+.scrollToTop a {
+  display: grid;
+  place-items: center;
 }
 </style>

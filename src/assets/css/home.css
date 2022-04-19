@@ -1,0 +1,31 @@
+.herobanner {
+    height: calc(100vh - min(150px, 15vh) - 30px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.scrollMore {
+    width: fit-content;
+    align-self: center;
+    margin-bottom: var(--mb-1);
+}
+
+.play3d {
+    display: flex;
+    align-items: center;
+    font-size: var(--big-font-size);
+    padding: var(--mb-1);
+    border-radius: var(--radius);
+    background: var(--main-color);
+    color: var(--font-color) !important;
+
+    margin-top: var(--mb-1);
+}
+
+@media screen and (min-width: 1250px) {
+    p {
+        width: 55%;
+        font-size: var(--title-card-font) !important;
+    }
+}

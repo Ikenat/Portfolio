@@ -1,0 +1,8 @@
+.navigation > li {
+    margin-right: var(--mb-1-5);
+    margin-left: var(--mb-1-5);
+    display: grid;
+    place-items: center;
+    height: 90px;
+    width: 90px;
+}
