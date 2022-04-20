@@ -110,6 +110,10 @@ body {
   color: var(--second-color);
 }
 
+.light-weight {
+  font-weight: 300;
+}
+
 #app {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
