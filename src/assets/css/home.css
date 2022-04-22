@@ -157,28 +157,44 @@
 .creative {
     position: relative;
 }
-
+.relative {
+    position: relative;
+    height: calc(5 * var(--header-section-font)) ;
+}
 .creative .abso {
     position: absolute;
-    top: calc(2* var(--header-section-font));
+    top: 0;
     left: calc(-100vh / 9 - 30px*7);
-    width: 100vh;
+    width: 100%;
     height: auto;
 }
 
-.box {
-    margin: 0 10px;
+.boxes-wrapper, .boxes {
+    position: relative;
+    display:flex; 
+    align-items:center;
 }
 
-.box > p {
+.boxes {
+    position: relative;
+    white-space: nowrap;
+    padding: 0;
+    margin: 0;
+    will-change: transform;
+}
+
+.box {
+    padding: 0;
+    display: inline-block;
+    margin-right: 1.5rem;
     font-size: var(--header-section-font);
 }
 
-.box.crea p {
+.box.crea {
     color: var(--main-color-dark);
 }
 
-.box.dev p {
+.box.dev {
     color: transparent;
     /* Prefix required. Even Firefox only supports the -webkit- prefix */
     -webkit-text-stroke-width: 2px;

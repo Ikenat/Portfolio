@@ -108,7 +108,7 @@ body {
 /*=================Base CSS=================*/
 
 .light_font {
-  color: var(--second-color);
+  color: var(--second-color) !important;
 }
 
 .light-weight {
@@ -121,6 +121,7 @@ body {
   grid-template-rows: min(150px, 15vh) auto;
   gap: 30px;
   grid-template-areas: ". nav nav nav nav nav nav nav ."
+                       ". hero hero hero hero hero hero hero ."
                        ". main main main main main main main .";
 }
 
@@ -135,8 +136,11 @@ nav > ul {
   display: flex;
   align-items: center;
 }
+#hero {
+  grid-area: hero;
+}
 
-main {
+.home {
   grid-area: main;
 }
 
