@@ -1,5 +1,6 @@
 @import "navigation.css";
 @import "home.css";
+@import "hero.css";
 
 
 @font-face {
@@ -106,7 +107,7 @@ body {
 
 /*=================Base CSS=================*/
 
-.light-font {
+.light_font {
   color: var(--second-color);
 }
 

@@ -3,8 +3,11 @@
 import { onMounted } from 'vue'
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
+import Hero from './components/hero.vue'
 import Home from './components/Home.vue'
 import Navigation from './components/Navigation.vue'
+import gsap from 'gsap'
+import ScrollTrigger from 'gsap/ScrollTrigger'
 
 import ScrollToTop from './components/icons/ScrollToTop.vue'
 
@@ -16,7 +19,9 @@ onMounted(() => {
   } else {
     body.setAttribute("data-theme", "light");
   }
-})
+
+});
+
 
 </script>
 
@@ -24,7 +29,8 @@ onMounted(() => {
   <Navigation />
 
   <main>
-    <Home />
+    <Hero class="panel" />
+    <Home class="panel" />
   </main>
 
   <div class="scrollToTop">
@@ -43,7 +49,7 @@ body {
   height: 500vh;
 }
 
-.canvas {
+  .canvas {
 
   position: absolute;
   top: 0;
@@ -53,7 +59,7 @@ body {
   height: 100vh;
   z-index: -1;
 
-  background-image: url('./assets/img/hero-banner.png');
+  background-image: url('./src/assets/img/hero-banner.png');
   background-size: cover;
   background-repeat: no-repeat;
 

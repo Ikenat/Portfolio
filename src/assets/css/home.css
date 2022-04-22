@@ -1,36 +1,3 @@
-.herobanner {
-    height: calc(100vh - min(150px, 15vh) - 30px);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.scrollMore {
-    width: fit-content;
-    align-self: center;
-    margin-bottom: var(--mb-1);
-}
-
-.play3d {
-    display: flex;
-    align-items: center;
-    font-size: var(--big-font-size);
-    padding: var(--mb-1);
-    border-radius: var(--radius);
-    background: var(--main-color);
-    color: var(--font-color) !important;
-
-    margin-top: var(--mb-1);
-}
-
-@media screen and (min-width: 1250px) {
-    p.big {
-        width: 55%;
-        font-size: var(--title-card-font) !important;
-    }
-}
-
-
 
 /*ABOUt*/
 
@@ -39,6 +6,7 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
+    gap: 50px;
 }
 
 .wrapper.left {
@@ -50,7 +18,7 @@
 }
 
 .wrapper.right {
-    width: 50%;
+    width: 45%;
     
 }
 
@@ -76,7 +44,7 @@
 
 .img.un img {
     width: 500px;
-    height: 700px;
+    height: 650px;
     object-fit: cover;
     
 }
@@ -96,6 +64,7 @@
 .img.trois {
     background-color: var(--main-color);
     z-index: 2;
+    width: 100%;
 }
 
 .img.trois img {
@@ -111,7 +80,7 @@
 }
 
 .img.quatre img {
-    width: 640px;
+    width: 440px;
     height: 710px;
     object-fit: cover;
     opacity: 0;
@@ -122,8 +91,96 @@
 .pagination {
     display: flex;
     justify-content: center;
+    margin-top: 25px;
 }
 
-.pagination ul {
+.pagination ul, .pagination_number {
     display: flex;
 }
+
+
+.pagination ul li button{
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    border: var(--font-color) 1px solid;
+    display: grid;
+    place-items: center;
+    font-size: 1rem;
+    margin: 0 10px ;
+    transition: all 0.1s ease-in-out;
+}
+
+.pagination ul li button:is(.prev, .next) {
+    width: 70px;
+}
+
+.pagination ul li button:is(.active) {
+    background-color: var(--main-color-dark);
+}
+
+.pagination ul li button:hover:not(.prev,.next) {
+    background-color: var(--main-color-hover);
+    transform: scale(1.2);
+    border: none;
+    color: var(--second-color);
+}
+
+.pagination ul li button:hover:is(.prev,.next) {
+    transform-origin: right;
+    border-radius: 10px;
+    background-color: var(--main-color-hover);
+    transform: scaleX(1.2);
+    border: none;
+    color: var(--second-color);
+}
+
+.pagination ul li button:hover:is(.prev) {
+    transform-origin: right;
+    -ms-transform-origin: right;
+    -o-transform-origin: right;
+}
+
+.pagination ul li button:hover:is(.next) {
+    transform-origin: left;
+    -ms-transform-origin: left;
+    -o-transform-origin: left;
+}
+
+
+
+
+#no01.boxes-wrapper .boxes, #no02.boxes-wrapper .boxes, #no03.boxes-wrapper .boxes {
+    display: flex;
+}
+
+.creative {
+    position: relative;
+}
+
+.creative .abso {
+    position: absolute;
+    top: calc(2* var(--header-section-font));
+    left: calc(-100vh / 9 - 30px*7);
+    width: 100vh;
+    height: auto;
+}
+
+.box {
+    margin: 0 10px;
+}
+
+.box > p {
+    font-size: var(--header-section-font);
+}
+
+.box.crea p {
+    color: var(--main-color-dark);
+}
+
+.box.dev p {
+    color: transparent;
+    /* Prefix required. Even Firefox only supports the -webkit- prefix */
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: var(--font-color);
+  }

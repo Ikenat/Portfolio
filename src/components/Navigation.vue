@@ -21,7 +21,7 @@ function switchTheme() {
 <template>
     <nav>
     <header class="logo">
-      <h1 class="light-font">Julien D</h1>
+      <h1 class="light_font">Julien D</h1>
     </header>
     <ul class="navigation">
       <li>
