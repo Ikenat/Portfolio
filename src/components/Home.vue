@@ -1,42 +1,153 @@
 <script setup>
 import { reactive } from '@vue/reactivity'
 import { computed } from '@vue/runtime-core'
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger';
 
+const img = reactive([
+  {
+  url: 'pic1.jpg',
+  position: 'un',
+  alt: 'test'
+  },
+  {
+  url: 'pic1.jpg',
+  position: 'deux',
+  alt: 'test'
+  },
+  {
+  url: 'pic1.jpg',
+  position: 'trois',
+  alt: 'test'
+  },
+  {
+  url: 'pic1.jpg',
+  position: 'quatre',
+  alt: 'test'
+  },
+]);
 
+let CurrentImg = ref(1);
+const alt = reactive({
+  1:'un',
+  2:'deux',
+  3:'trois',
+  4:'quatre'
+});
+
+//get url of img
 function gerUrl(param) {
   return './src/assets/img/' + param;
 }
 
-function ChangeActive(el) {
+//get pagination previously active
+const getPaginationActive = (nextImg = 0) => {
   let pagination = document.querySelector('.pagination_number');
+  let indexPrevious = 0
   pagination.childNodes.forEach((button, index) => {
-    console.log(button);
     if ( (index !== 0 && index !== 5) && Object.values(button.childNodes[0].classList).includes('active')) {
-      button.childNodes[0].classList.toggle('active')
-      button.childNodes[0].classList.toggle('light_font')
+      indexPrevious = index;
     }
   })
-  el.target.classList.add('active');
-  el.target.classList.add('light_font');
+  if(nextImg !== 0) {
+    return pagination.childNodes[nextImg];
+  } else {
+    return pagination.childNodes[indexPrevious];
+  }
+}
+
+//change wich button is active
+const changePaginationActive = (toActive, toRemove) => {
+      toRemove.childNodes[0].classList.remove('active');
+      toRemove.childNodes[0].classList.remove('light_font');
+
+      toActive.classList.add('active');
+      toActive.classList.add('light_font');
+}
+
+const Next = () => {
+  let nextImgKey = CurrentImg.value < 4 ? (CurrentImg.value + 1) : 1;
+
+  changePaginationActive(getPaginationActive(nextImgKey).childNodes[0], getPaginationActive())
+  return nextImgKey;
+}
+
+const Prev = () => {
+  let nextImgKey = CurrentImg.value > 1 ? (CurrentImg.value - 1) : 4;
+
+  changePaginationActive(getPaginationActive(nextImgKey).childNodes[0], getPaginationActive())
+  return nextImgKey;
+}
+
+//get number img we want and remove class from prev pagination
+const Pagination = (index, event) => {
+  changePaginationActive(event.target, getPaginationActive());
+
+
+  let nextImgKey = Object.keys(alt).find((element, i) => {
+    return i === index;
+  });
+
+  return nextImgKey;
+}
+
+const ChangeActive = (event, index = 10) => {
+  let nextImgKey = CurrentImg.value;
+
+  //get action to change img
+  switch(event.target.classList[0]) {
+    case 'Pagination': 
+      nextImgKey = Pagination(index, event);
+      break;
+    case 'next':
+      nextImgKey = Next();
+      break;
+    case 'prev': 
+      nextImgKey = Prev();
+      break;
+    default:
+      nextImgKey = CurrentImg.value;
+      break;
+  }
+
+  CurrentImg.value = nextImgKey;
+
+  //remove active from previous img
+  let images = document.querySelectorAll('.img');
+  images.forEach((img) => {
+    if(img.classList.value.includes('active')) {
+      img.classList.toggle('active')
+    }
+  })
+
+
+  let nextImg = '#' + alt[nextImgKey];
+
+  //animate new img et set active class
+  gsap.to(nextImg, {x: 100, duration: 0.5}).then(gsap.to(nextImg, {x: 0, duration:0.5, delay:0.5}).then(document.querySelector(nextImg).classList.toggle("active")))
 }
 
 
-onMounted(() => {
-  const links = document.querySelectorAll(".box");
-let marquee = document.querySelector('.boxes')
 
-  console.log(marquee);
+
+onMounted(() => {
+  
+  let marquee = document.querySelector('.boxes')
+
+
+  gsap.utils.toArray('.boxes').forEach((line, i) => {
+    const words = line.querySelectorAll(".box"),
+          tl = horizontalLoop(words, {
+              repeat: -1,
+              speed:  1.3,
+              reversed: i === 1 ? true : false,
+              paddingRight: parseFloat(gsap.getProperty(words[0], "marginRight", "px"))
+});
+  })
 
   // assign the timeline returned from the helper function to 'loop'  
-  let loop = horizontalLoop(links, {
-    repeat: -1,
-    speed: 1 + 0.5,
-    reversed: false,
-    paddingRight: parseFloat(gsap.getProperty(links[0], "marginRight", "px"))
-});
+ 
 
 function horizontalLoop(items, config) {
     items = gsap.utils.toArray(items);
@@ -148,83 +259,13 @@ function horizontalLoop(items, config) {
         tl.vars.onReverseComplete();
         tl.reverse();
     }
-    if (config.draggable && typeof Draggable === "function") {
-        let proxy = document.createElement("div"),
-            wrap = gsap.utils.wrap(0, 1),
-            ratio,
-            startProgress,
-            draggable,
-            dragSnap,
-            roundFactor,
-            align = () =>
-                tl.progress(
-                    wrap(
-                        startProgress + (draggable.startX - draggable.x) * ratio
-                    )
-                ),
-            syncIndex = () => tl.updateIndex();
-        typeof InertiaPlugin === "undefined" &&
-            console.warn(
-                "InertiaPlugin required for momentum-based scrolling and snapping. https://greensock.com/club"
-            );
-        draggable = Draggable.create(proxy, {
-            trigger: items[0].parentNode,
-            type: "x",
-            onPress() {
-                startProgress = tl.progress();
-                tl.progress(0);
-                populateWidths();
-                totalWidth = getTotalWidth();
-                ratio = 1 / totalWidth;
-                dragSnap = totalWidth / items.length;
-                roundFactor = Math.pow(
-                    10,
-                    ((dragSnap + "").split(".")[1] || "").length
-                );
-                tl.progress(startProgress);
-            },
-            onDrag: align,
-            onThrowUpdate: align,
-            inertia: true,
-            snap: (value) => {
-                let n =
-                    Math.round(parseFloat(value) / dragSnap) *
-                    dragSnap *
-                    roundFactor;
-                return (n - (n % 1)) / roundFactor;
-            },
-            onRelease: syncIndex,
-            onThrowComplete: () => gsap.set(proxy, { x: 0 }) && syncIndex()
-        })[0];
-    }
+
 
     return tl;
 }
-  
+
 })
 
-const img = reactive([
-  {
-  url: 'pic1.jpg',
-  position: 'un',
-  alt: 'test'
-  },
-  {
-  url: 'pic1.jpg',
-  position: 'deux',
-  alt: 'test'
-  },
-  {
-  url: 'pic1.jpg',
-  position: 'trois',
-  alt: 'test'
-  },
-  {
-  url: 'pic1.jpg',
-  position: 'quatre',
-  alt: 'test'
-  },
-])
 </script>
 
 <template>
@@ -239,14 +280,14 @@ const img = reactive([
       </div>
       <div class="wrapper right">
         <div class="relative-img">
-          <div v-for="(image, index) in img" :key="index" class="img" :class="image.position">
+          <div v-for="(image, index) in img" :key="index" :data-index="index+1" class="img" :id="image.position" :class="{active: index == 0}">
             <img :src="gerUrl(image.url)" :alt="image.alt">
           </div>
         </div>
         <div class="pagination">
           <ul>
             <li>
-              <button class="prev">
+              <button class="prev" @click.prevent.self="ChangeActive($event)">
                 <svg width="12" height="19" viewBox="0 0 12 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M11.5286 16.8334L4.65857 9.9483L11.5286 3.06326L9.41357 0.948242L0.413574 9.9483L9.41357 18.9484L11.5286 16.8334Z" fill="#524A4E"/>
                 </svg>
@@ -254,13 +295,13 @@ const img = reactive([
             </li>
             <div class="pagination_number">
               <li v-for="(image, index) in img" :key="index">
-              <button :class="{active: index==0, light_font: index==0}" @click="ChangeActive">
+              <button class="Pagination" :class="{active: index==0, light_font: index==0}" @click="ChangeActive($event, index)">
                 {{ index + 1 }}
               </button>
             </li>
             </div>
             <li>
-              <button class="next">
+              <button class="next" @click="ChangeActive($event)">
                 <svg width="12" height="19" viewBox="0 0 12 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M0.471436 3.06313L7.34143 9.94818L0.471436 16.8332L2.58643 18.9482L11.5864 9.94818L2.58643 0.94812L0.471436 3.06313Z" fill="#524A4E"/>
                 </svg>
@@ -280,6 +321,8 @@ const img = reactive([
               <span class="box dev">Developpeur</span>
               <span class="box crea">Creative</span>
               <span class="box dev">Developpeur</span>
+              <span class="box crea">Creative</span>
+              <span class="box dev">Developpeur</span>
           </div>
         </div>
         <div id="no02" class="boxes-wrapper">
@@ -288,10 +331,14 @@ const img = reactive([
               <span class="box crea">Creative</span>
               <span class="box dev">Developpeur</span>
               <span class="box crea">Creative</span>
+              <span class="box dev">Developpeur</span>
+              <span class="box crea">Creative</span>
           </div>
         </div>
         <div id="no03" class="boxes-wrapper">
           <div class="boxes">
+              <span class="box crea">Creative</span>
+              <span class="box dev">Developpeur</span>
               <span class="box crea">Creative</span>
               <span class="box dev">Developpeur</span>
               <span class="box crea">Creative</span>
@@ -306,36 +353,3 @@ const img = reactive([
     </section>
   </div>
 </template>
-
-<style>
-
-.home {
-  display: grid;
-  grid-template-columns: repeat(9, 1fr);
-  grid-template-rows: calc(100vh - min(150px, 15vh) - 30px) repeat(3, 100vh);
-  gap: 30px;
-  grid-template-areas: ". hero hero hero hero hero hero ."
-                       ". about about about about about about ."
-                       "fullpage fullpage fullpage fullpage fullpage fullpage fullpage fullpage"
-                       ". reste reste reste reste reste reste ."
-  
-  ;
-}
- #hero {
-   grid-area: hero;
- }
-
-#about{
-  grid-area: about;
-}
-
-#crea {
-  grid-area: fullpage;
-}
-
-#reste {
-  grid-area: reste;
-}
-
-
-</style>

@@ -32,54 +32,63 @@
     align-items: flex-end;
 }
 
+.relative-img .img.active {
+    z-index: 100 !important;
+}
+
+.relative-img .img.active img {
+    opacity: 1 !important;
+}
+
 .img {
     position: absolute;
     display: flex;
 }
 
-.img.un {
+.img#un {
     background-color: var(--main-color);
     z-index: 4;
 }
 
-.img.un img {
+.img#un img {
     width: 500px;
     height: 650px;
     object-fit: cover;
+    opacity: 0;
     
 }
 
-.img.deux {
+.img#deux {
     background-color: var(--main-color-dark);
     z-index: 3;
 }
 
-.img.deux img {
+.img#deux img {
     width: 550px;
     height: 600px;
     object-fit: cover;
     opacity: 0;
 }
 
-.img.trois {
+.img#trois {
     background-color: var(--main-color);
     z-index: 2;
     width: 100%;
 }
 
-.img.trois img {
-    width: 620px;
+.img#trois img {
+    width: 100%;
     height: 550px;
     object-fit: cover;
     opacity: 0;
 }
 
-.img.quatre {
+.img#quatre {
     background-color: var(--main-color-hover);
     z-index: 1;
 }
 
-.img.quatre img {
+.img#quatre img {
     width: 440px;
     height: 710px;
     object-fit: cover;
@@ -164,8 +173,8 @@
 .creative .abso {
     position: absolute;
     top: 0;
-    left: calc(-100vh / 9 - 30px*7);
-    width: 100%;
+    left: calc(-100vw / 9);
+    width: 100vw;
     height: auto;
 }
 
@@ -173,6 +182,7 @@
     position: relative;
     display:flex; 
     align-items:center;
+    overflow-x: hidden;
 }
 
 .boxes {

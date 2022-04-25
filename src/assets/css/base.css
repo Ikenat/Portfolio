@@ -121,7 +121,6 @@ body {
   grid-template-rows: min(150px, 15vh) auto;
   gap: 30px;
   grid-template-areas: ". nav nav nav nav nav nav nav ."
-                       ". hero hero hero hero hero hero hero ."
                        ". main main main main main main main .";
 }
 
@@ -136,11 +135,9 @@ nav > ul {
   display: flex;
   align-items: center;
 }
-#hero {
-  grid-area: hero;
-}
 
-.home {
+
+main {
   grid-area: main;
 }
 
