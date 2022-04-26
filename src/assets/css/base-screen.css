@@ -1,0 +1,23 @@
+@media (min-width: 1250px) {
+    :root {
+        font-size: 24px !important;
+
+        /*========Fonts========*/
+        --body-font: "Argentum", sans-serif;
+        --menu-title: 6rem ;
+        --header-section-font: 1rem;
+        --big-font-size: 2.5rem;
+        --title-card-font: 1.5rem;
+        --text-font: 1rem;
+        --smallest-font: 0.85rem;
+        --text-line-height: 1.5;
+    }
+
+    .scrollToTop {
+        bottom: 10vh;
+        right: 10vh;
+
+        width: fit-content;
+        height: fit-content;
+    }
+}

@@ -1,0 +1,6 @@
+@media screen and (min-width: 1250px) {
+    .nav-ul__wrapper {
+        flex-direction: row;
+        gap: 100px;
+    }
+}

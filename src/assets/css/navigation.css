@@ -1,3 +1,28 @@
+.nav__wrapper {
+    position: relative;
+    grid-area: nav;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.logo {
+    display: grid;
+    place-items: center;
+}
+  
+.button__wrapper {
+    grid-area: nav;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.button__wrapper > ul {
+    display: flex;
+    align-items: center;
+  }
+
 .navigation > li {
     margin-right: var(--mb-1-5);
     margin-left: var(--mb-1-5);
@@ -5,4 +30,59 @@
     place-items: center;
     height: 90px;
     width: 90px;
+}
+
+.links__wrapper {
+    grid-area: link;
+    width: 100%;
+}
+
+.nav__wrapper.active {
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: min(150px, 15vh) auto;
+    gap: 30px;
+    grid-template-areas: ". nav nav nav nav nav nav nav ."
+                       ". link link link link link link link .";
+
+
+
+    position: absolute;
+    z-index: var(--z-fixed);
+    top: 0;
+    left: calc(-100vw / 9);
+    background-color: var(--second-color);
+    height: 0;
+
+    width: 100vw;
+    height: 100vh;
+}
+
+
+.link {
+    position: relative;
+    font-size: var(--title-card-font);
+}
+
+.link::after {
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    content: '';
+
+    height: 8px;
+    width: 0;
+    background-color: var(--main-color);
+    transition: width 0.4s ease;
+
+}
+
+.link:hover::after {
+    width: 100%;
+}
+
+.nav-ul__wrapper {
+    display: flex;
+    flex-direction: column;
 }

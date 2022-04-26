@@ -1,15 +1,19 @@
 <script setup>
 
 import { onMounted } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
 import Hero from './components/hero.vue'
 import Home from './components/Home.vue'
 import Navigation from './components/Navigation.vue'
-import gsap from 'gsap'
-import ScrollTrigger from 'gsap/ScrollTrigger'
+import { useSizeStore } from './stores/size'
 
 import ScrollToTop from './components/icons/ScrollToTop.vue'
+
+
+const SizeStore = useSizeStore();
+
+window.addEventListener('resize', () => {
+  SizeStore.resize(window.innerWidth);
+})
 
 onMounted(() => {
     let body = document.body
@@ -67,16 +71,21 @@ body {
 
 .scrollToTop {
   position: fixed;
-  bottom: 10vh;
-  right: 10vh;
+  bottom: 5vh;
+  right: 5vh;
 
   box-shadow: 5px 5px 1px rgba(174, 174, 192, 50%);
 
   background: var(--main-color);
   border-radius: var(--radius);
 
-  width: fit-content;
-  height: fit-content;
+  width: 50px;
+  height: 50px;
+}
+
+.scrollToTop svg {
+  height: 50px;
+  width: 50px;
 }
 
 .scrollToTop a {

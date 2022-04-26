@@ -1,0 +1,10 @@
+@media screen and (min-width: 1250px) {
+    p.big {
+        width: 55%;
+        font-size: var(--title-card-font) !important;
+    }
+
+    .play3d {
+        width: fit-content;
+    }
+}

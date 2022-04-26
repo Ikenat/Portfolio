@@ -10,10 +10,10 @@ import PlayIcon from './icons/PlayArrow.vue'
         <p class="light_font big">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Luctus tortor non egestas vivamus nulla aliquam. Eu lectus nibh sollicitudin semper. </p>
         <button class="play3d">
           <PlayIcon />
-          3D portfolio
+          <span>3D portfolio</span>
         </button>
       </div>
-      <a href="#About" class="scrollMore">
+      <a href="#about" class="scrollMore">
         <ScrollIcon />
       </a>
     </section>

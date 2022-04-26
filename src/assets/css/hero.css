@@ -5,6 +5,10 @@
     justify-content: space-between;
 }
 
+p.big {
+    width: min(100%, 500px);
+}
+
 
 .scrollMore {
     width: fit-content;
@@ -15,6 +19,7 @@
 .play3d {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     font-size: var(--big-font-size);
     padding: var(--mb-1);
     border-radius: var(--radius);
@@ -22,11 +27,9 @@
     color: var(--font-color) !important;
 
     margin-top: var(--mb-1);
+    width: min(100%, 500px);
 }
 
-@media screen and (min-width: 1250px) {
-    p.big {
-        width: 55%;
-        font-size: var(--title-card-font) !important;
-    }
+.play3d span {
+    margin-left: var(--mb-1-5);
 }

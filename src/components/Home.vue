@@ -4,6 +4,10 @@ import { computed } from '@vue/runtime-core'
 import { onMounted, ref } from 'vue'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger';
+import FrontIcon from './icons/FrontIcon.vue';
+import BackIcon from './icons/BackIcon.vue'
+import DataIcon from './icons/DataIcon.vue'
+import ServiceIcon from './icons/ServiceIcon.vue'
 
 const img = reactive([
   {
@@ -35,6 +39,109 @@ const alt = reactive({
   3:'trois',
   4:'quatre'
 });
+
+let themeIcon = reactive({
+  light: "#FBF8F1",
+  dark: "#232025"
+})
+
+let Stack = reactive([
+  {
+    name: 'front',
+    stack: [
+      {
+        name: 'Vuejs',
+        icon:'',
+        text: ""
+      },
+      {
+        name: 'NuxtJs',
+        icon:'',
+        text: ""
+      },
+      {
+        name: 'Typescript',
+        icon:'',
+        text: "",
+        learning: true
+      }
+    ]
+  },
+  {
+    name: 'back',
+    stack: [
+      {
+        name: 'php',
+        icon:'',
+        text: ''
+      },
+      {
+        name: 'nodeJs',
+        icon:'',
+        text: ''
+      },
+      {
+        name: 'Laravel',
+        icon:'',
+        text: '',
+        learning: true
+      },
+    ]
+  },
+  {
+    name: 'Data',
+    stack: [
+      {
+        name: 'MySQL',
+        icon:'',
+        text:''
+      },
+      {
+        name: 'MongoDB',
+        icon:'',
+        text:'',
+        learning: true
+      },
+    ]
+  },
+  {
+    name: 'Services',
+    stack: [
+      {
+        name: 'ThreeJs',
+        icon:'',
+        text:'',
+      },
+      {
+        name: 'git',
+        icon:'',
+      },
+      {
+        name: 'Jest',
+        icon:'',
+      },
+      {
+        name: 'Gsap',
+        icon:'',
+      },
+      {
+        name: 'Axios',
+        icon:'',
+      },
+      {
+        name: 'Stripe',
+        icon:'',
+        learning:true
+      },
+      {
+        name: 'Stripe',
+        icon:'',
+        text:'',
+        learning:true
+      }
+    ]
+  }
+])
 
 //get url of img
 function gerUrl(param) {
@@ -127,9 +234,6 @@ const ChangeActive = (event, index = 10) => {
   //animate new img et set active class
   gsap.to(nextImg, {x: 100, duration: 0.5}).then(gsap.to(nextImg, {x: 0, duration:0.5, delay:0.5}).then(document.querySelector(nextImg).classList.toggle("active")))
 }
-
-
-
 
 onMounted(() => {
   
@@ -348,8 +452,35 @@ function horizontalLoop(items, config) {
       </div>
       </div>
     </section> 
-    <section id="reste">
-
+    <section id="stack">
+      <h2>J'utilise</h2>
+      <div class="stack__wrapper">
+        <div class="wrapper stackNav__wrapper">
+          <div class="stackNav Stackicon active">
+            <FrontIcon :theme="themeIcon.dark"/>
+          </div>
+          <div class="stackNav Stackicon">
+            <BackIcon :theme="themeIcon.light"/>
+          </div>
+          <div class="stackNav Stackicon">
+            <DataIcon :theme="themeIcon.light" />
+          </div>
+          <div class="stackNav Stackicon">
+            <ServiceIcon :theme="themeIcon.light" />
+          </div>
+        </div>
+        <div class="wrapper Front">
+          <div class="vuejs dark">
+            vuejs
+          </div>
+          <div class="nuxtjs mid">
+            nuxtjs
+          </div>
+          <div class="typescript light">
+            Typescript
+          </div>
+        </div>
+      </div>
     </section>
   </div>
 </template>
