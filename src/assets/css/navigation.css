@@ -1,19 +1,35 @@
 .nav__wrapper {
-    position: relative;
     grid-area: nav;
+    z-index: var(--z-fixed);
+}
+
+.test {
+    position: relative;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    padding: 0 calc(100vw / 9);
+    height: 150px;
+    width: 100%;
+
     overflow: hidden;
+    transition: height ease .6s, background-color ease .1s 0.5s;
+}
+.navButton {
+    transition: transform ease 0.3s;
+}
+.navButton:hover {
+    transform: scale(1.1);
 }
 
 .logo {
     display: grid;
     place-items: center;
 }
+
   
 .button__wrapper {
-    grid-area: nav;
+    height: 150px;
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -33,30 +49,33 @@
 }
 
 .links__wrapper {
-    grid-area: link;
+    background-color: var(--second-color);
     width: 100%;
+    height: 0;
 }
 
-.nav__wrapper.active {
-    display: grid;
-    place-items: center;
-    grid-template-columns: repeat(9, 1fr);
-    grid-template-rows: min(150px, 15vh) auto;
-    gap: 30px;
-    grid-template-areas: ". nav nav nav nav nav nav nav ."
-                       ". link link link link link link link .";
 
-
-
-    position: absolute;
-    z-index: var(--z-fixed);
-    top: 0;
-    left: calc(-100vw / 9);
-    background-color: var(--second-color);
-    height: 0;
-
-    width: 100vw;
+.test.active {
     height: 100vh;
+    background-color: var(--second-color);
+    transition: all ease .6s;
+}
+
+.links__wrapper.active {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    height: inherit;
+
+    pointer-events:all !important;
+
+}
+
+.links__wrapper.active h4{
+    display: flex;
+    width: inherit;
+    justify-content: flex-end;
+
 }
 
 

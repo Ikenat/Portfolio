@@ -45,8 +45,9 @@ let links = reactive([
 
 ])
 
+let curTheme = ref('light');
 let themeIcon = reactive({
-  light: "#FBF8F1",
+  light: "#F0EADB",
   dark: "#232025"
 })
 let NavigationOpen = ref(false)
@@ -54,21 +55,31 @@ let NavigationOpen = ref(false)
 const switchTheme = () => {
             let body = document.body
             let theme = body.getAttribute("data-theme") 
-            console.log(theme);
             switch(theme) {
                     case "dark" :
                         body.setAttribute("data-theme", "Light");
+                        curTheme.value = 'light'
                         break
                     default: 
-                        body.setAttribute("data-theme", "dark")
+                        body.setAttribute("data-theme", "dark");
+                        curTheme.value = 'dark'
                         break;
                 }
         };
 
 const toggleNav = () => {
-  NavigationOpen.value = !NavigationOpen.value;
+  if (!NavigationOpen.value) {
+    NavigationOpen.value = !NavigationOpen.value
+  } else {
+    setTimeout(function () {
+    NavigationOpen.value = !NavigationOpen.value
+  }, 700)
+  }
+  
   let nav = document.querySelector('.nav__wrapper');
+  let navtest = document.querySelector('.test');
 
+  navtest.classList.toggle('active');
   nav.classList.toggle("active");
 
   nav.querySelector("h1").classList.toggle("light_font");
@@ -89,31 +100,31 @@ const limitArray = (arr, to = 3, start = 0) => {
 
 <template>
   <div class="nav__wrapper">
-    <div class="button__wrapper">
+    <div class="test">
+      <div class="button__wrapper">
       <header class="logo">
-      <a href="/"><h1 class="light_font">Julien D</h1></a>
+      <a href="/"><h1 class="logo__text light_font delay">Julien D</h1></a>
     </header>
     <ul class="navigation">
-      <li v-if="sizeScreen === 'screen'">
+      <li v-if="sizeScreen === 'screen'" class="navButton">
         <button class="light-svg">
-          <ThemeIcon  :theme="NavigationOpen ? themeIcon.dark : themeIcon.light" @click="switchTheme"/>
+          <ThemeIcon :currentTheme="curTheme" :NavOpen="NavigationOpen" :theme="themeIcon" @click="switchTheme"/>
         </button>
       </li>
-      <li v-if="sizeScreen === 'screen'">
+      <li v-if="sizeScreen === 'screen'" class="navButton">
         <a href="https://github.com/Ikenat" target="_blank">
-          <Github :theme="NavigationOpen ? themeIcon.dark : themeIcon.light" />
+          <Github :currentTheme="curTheme" :NavOpen="NavigationOpen" :theme="themeIcon" />
         </a>
       </li>
-      <li>
+      <li class="navButton">
         <button @click="toggleNav()">
-          <NavIcon :theme="themeIcon.light" v-if="!NavigationOpen" />
-          <CloseIcon :theme="themeIcon.dark" v-if="NavigationOpen"  />
+          <NavIcon :NavOpen="NavigationOpen" />
         </button>
       </li>
     </ul>
     </div>
     
-    <div class="links__wrapper" v-if="NavigationOpen">
+    <div class="links__wrapper">
       <h4>
         Menu
       </h4>
@@ -131,6 +142,7 @@ const limitArray = (arr, to = 3, start = 0) => {
           </div>
         </ul>
       </nav>
+    </div>
     </div>
   </div>
 </template>

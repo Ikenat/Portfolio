@@ -45,45 +45,45 @@ let themeIcon = reactive({
   dark: "#232025"
 })
 
-let Stack = reactive([
+let Stacks = reactive([
   {
-    name: 'front',
+    name: 'Front',
     stack: [
       {
         name: 'Vuejs',
-        icon:'',
-        text: ""
+        icon:'Vuejs.png',
+        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor consectetur leo purus adipiscing."
       },
       {
-        name: 'NuxtJs',
-        icon:'',
-        text: ""
+        name: 'Nuxtjs',
+        icon:'Nuxt.svg',
+        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor consectetur leo purus adipiscing."
       },
       {
-        name: 'Typescript',
-        icon:'',
-        text: "",
+        name: 'typescript',
+        icon:'Typescript.png',
+        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor consectetur leo purus adipiscing.",
         learning: true
       }
     ]
   },
   {
-    name: 'back',
+    name: 'Back',
     stack: [
       {
         name: 'php',
-        icon:'',
-        text: ''
+        icon:'php.png',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor consectetur leo purus adipiscing.'
       },
       {
         name: 'nodeJs',
-        icon:'',
-        text: ''
+        icon:'nodeJs.png',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor consectetur leo purus adipiscing.'
       },
       {
         name: 'Laravel',
-        icon:'',
-        text: '',
+        icon:'Laravel.png',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor consectetur leo purus adipiscing.',
         learning: true
       },
     ]
@@ -93,13 +93,13 @@ let Stack = reactive([
     stack: [
       {
         name: 'MySQL',
-        icon:'',
-        text:''
+        icon:'MySQL.png',
+        text:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor consectetur leo purus adipiscing.'
       },
       {
         name: 'MongoDB',
-        icon:'',
-        text:'',
+        icon:'MongoDB.png',
+        text:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor consectetur leo purus adipiscing.',
         learning: true
       },
     ]
@@ -109,34 +109,34 @@ let Stack = reactive([
     stack: [
       {
         name: 'ThreeJs',
-        icon:'',
-        text:'',
+        icon:'ThreeJs',
+        text:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor consectetur leo purus adipiscing.',
       },
       {
         name: 'git',
-        icon:'',
+        icon:'git',
       },
       {
         name: 'Jest',
-        icon:'',
+        icon:'Jest',
       },
       {
         name: 'Gsap',
-        icon:'',
+        icon:'Gsap',
       },
       {
         name: 'Axios',
-        icon:'',
+        icon:'Axios',
       },
       {
         name: 'Stripe',
-        icon:'',
+        icon:'Stripe',
         learning:true
       },
       {
         name: 'Stripe',
-        icon:'',
-        text:'',
+        icon:'Stripe',
+        text:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor consectetur leo purus adipiscing.',
         learning:true
       }
     ]
@@ -456,11 +456,11 @@ function horizontalLoop(items, config) {
       <h2>J'utilise</h2>
       <div class="stack__wrapper">
         <div class="wrapper stackNav__wrapper">
-          <div class="stackNav Stackicon active">
-            <FrontIcon :theme="themeIcon.dark"/>
-          </div>
           <div class="stackNav Stackicon">
-            <BackIcon :theme="themeIcon.light"/>
+            <FrontIcon :theme="themeIcon.light"/>
+          </div>
+          <div class="stackNav Stackicon active">
+            <BackIcon :theme="themeIcon.dark"/>
           </div>
           <div class="stackNav Stackicon">
             <DataIcon :theme="themeIcon.light" />
@@ -469,15 +469,24 @@ function horizontalLoop(items, config) {
             <ServiceIcon :theme="themeIcon.light" />
           </div>
         </div>
-        <div class="wrapper Front">
-          <div class="vuejs dark">
-            vuejs
+        <div class="wrapper stack__content" :class="Stacks[2].name"> 
+          <div class="Learning">
+            <p>Learning</p>
           </div>
-          <div class="nuxtjs mid">
-            nuxtjs
-          </div>
-          <div class="typescript light">
-            Typescript
+          <div v-for="(stack, index) in Stacks[2].stack" :key="index" class="stack" :class="stack.name">
+            <div class="color" :class="{'dark': index % 3 == 0, 'mid': index % 3 == 1, 'light': index % 3 == 2}">
+              <div class="stack__header">
+                <div class="stack__img-wrapper">
+                  <img :src="'./src/assets/img/stack/' + stack.icon" :alt="stack.name + ' logo'">
+                </div>
+                <div class="stack__name">
+                  <p>{{stack.name}}</p>
+                </div>
+              </div>
+              <div class="stack__text" v-if="stack.text !== null && stack.text !== undefined">
+                <p>{{stack.text}}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

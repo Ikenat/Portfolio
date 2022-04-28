@@ -140,6 +140,7 @@
 
 .pagination ul li button:is(.active) {
     background-color: var(--main-color-dark);
+    border: none;
 }
 
 .pagination ul li button:hover:not(.prev,.next) {
@@ -249,43 +250,189 @@
     background-color: var(--main-color);
   }
   .Stackicon {
+      position: relative;
       background-color: var(--main-color-dark);
       border-radius: 100px;
       width: 80px;
       height: 80px;
       display: grid;
       place-items: center;
+      transition: background ease 0.3s;
   }
+  .Stackicon:hover {
+    cursor: pointer;
+    background-color: var(--main-color-hover);
+}
+
+  .Stackicon:not(:last-child):after,
+  .Stackicon:not(:first-child)::before  {
+      content: '';
+      width: 10px;
+      height: calc((70vh - (80px * 4)) / 6);
+      background-color: var(--main-color-dark);
+
+      position: absolute;
+      left: 50%;
+
+      transform: translateX(-50%);
+      z-index: -1;
+  }
+  .Stackicon:not(:last-child)::after {
+    transform-origin: top;
+    top: calc(100%);
+  }
+  .Stackicon:not(:first-child)::before {
+    transform-origin: bottom;
+    bottom: calc(100%);
+  }
+  .Stackicon.active::after, .Stackicon.active::before {
+    background-color: var(--main-color);
+}
+
+.Stackicon:hover:not(:last-child):after,
+.Stackicon:hover:not(:first-child):before {
+    background-color: var(--main-color-hover);
+}
 
   .Front {
+      transition: all 0.3s ease;
     height: 100%;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: min(100px, 15vh) auto min(100px, 15vh);
+    grid-template-rows: min(200px, 15vh) auto  auto min(200px, 15vh);
     gap: 20px;
-    grid-template-areas: ". . ."
+    grid-template-areas: ". . Learning"
+                        "vuejs nuxt typescript"
                         "vuejs nuxt typescript"
                         ". . .";
 
-  }  
-
-  .Front div.vuejs {
-      grid-area: vuejs;
   }
-  .Front div.nuxtjs {
+  .Back {
+    transition: all 0.3s ease;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: min(200px, 15vh) auto  auto min(200px, 15vh);
+    gap: 20px;
+    grid-template-areas: ". . Learning"
+                        "php nodejs laravel"
+                        "php nodejs laravel"
+                        ". . .";
+
+}  
+.Data {
+    transition: all 0.3s ease;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: min(200px, 15vh) auto  auto min(200px, 15vh);
+    gap: 20px;
+    grid-template-areas: ". . Learning"
+                        "MySQL . MongoDB"
+                        "MySQL . MongoDB"
+                        ". . .";
+
+} 
+
+.Learning {
+    grid-area: Learning;
+    display: flex;
+    align-items: center;
+}
+
+  .stack__content .stack .color {
+    padding: var(--mb-1-5);
+}
+
+.Front div.Vuejs {
+    grid-area: vuejs;
+}
+.Front div.Nuxtjs {
     grid-area: nuxt;
 }
 .Front div.typescript {
     grid-area: typescript;
 }
 
-.Front > div.light {
+.Back div.php {
+    grid-area: php;
+}
+.Back div.nodeJs {
+    grid-area: nodejs;
+}
+.Back div.Laravel {
+    grid-area: laravel;
+}
+
+.Data div.MySQL {
+    grid-area: MySQL;
+}
+.Data div.MongoDB {
+    grid-area: MongoDB;
+}
+
+.Front .color, .Back .color {
+    width: 100%;
+    height: 100%;
+}
+
+.color .stack__img-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+}
+
+.color .stack__img-wrapper img{
+    width: 80px;
+    height: auto;
+}
+
+
+.color.light .stack__img-wrapper{
+    background-color: var(--font-color-alt);
+}
+.color.dark .stack__img-wrapper{
     background-color: var(--main-color);
 }
-.Front > div.mid {
+
+.color.mid .stack__img-wrapper{
+    background-color: var(--font-color);
+}
+
+.stack__content div > .color.light {
+    background-color: var(--main-color);
+}
+.stack__content div > .color.mid {
     background-color: var(--main-color-hover);
 }
-.Front > div.dark {
+.stack__content div > .color.dark {
     background-color: var(--main-color-dark);
+}
+
+.stack__content div > .color.light p {
+    color: var(--font-color);
+}
+.stack__content div > .color.mid p {
+    color: var(--second-color-alt);
+}
+.stack__content div > .color.dark p {
+    color: var(--second-color);
+}
+
+
+.stack > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.stack__header {
+    display: flex;
+    align-items: center;
+    gap: 30px;
 }

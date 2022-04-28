@@ -1,11 +1,82 @@
 <template>
-  <svg width="84" height="83" viewBox="0 0 84 83" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M22.35 16.5841L15.6 9.87158L10.3125 15.1591L17.025 21.8716L22.35 16.5841ZM12 37.8091H0.75V45.3091H12V37.8091ZM45.75 0.496582H38.25V11.5591H45.75V0.496582ZM73.6875 15.1591L68.4 9.87158L61.6875 16.5841L66.975 21.8716L73.6875 15.1591ZM61.65 66.5341L68.3625 73.2841L73.65 67.9966L66.9 61.2841L61.65 66.5341ZM72 37.8091V45.3091H83.25V37.8091H72ZM42 19.0591C29.5875 19.0591 19.5 29.1466 19.5 41.5591C19.5 53.9716 29.5875 64.0591 42 64.0591C54.4125 64.0591 64.5 53.9716 64.5 41.5591C64.5 29.1466 54.4125 19.0591 42 19.0591ZM38.25 82.6216H45.75V71.5591H38.25V82.6216ZM10.3125 67.9591L15.6 73.2466L22.3125 66.4966L17.025 61.2091L10.3125 67.9591Z" :fill="theme"/>
+<div>
+
+  <svg class="sun" :class="{'visible': currentTheme == 'light'}" width="90px" height="90px" viewBox="0 0 24 24" fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle cx="11.9998" cy="11.9998" r="5.75375" :fill="!NavOpen ? theme.light : theme.dark" />
+      <g>
+        <circle
+          cx="3.08982"
+          cy="6.85502"
+          r="1.71143"
+          transform="rotate(-60 3.08982 6.85502)"
+          :fill="!NavOpen ? theme.light : theme.dark"
+        />
+        <circle
+          cx="3.0903"
+          cy="17.1436"
+          r="1.71143"
+          transform="rotate(-120 3.0903 17.1436)"
+          :fill="!NavOpen ? theme.light : theme.dark"
+        />
+        <circle cx="12" cy="22.2881" r="1.71143" :fill="!NavOpen ? theme.light : theme.dark" />
+        <circle
+          cx="20.9101"
+          cy="17.1436"
+          r="1.71143"
+          transform="rotate(-60 20.9101 17.1436)"
+          :fill="!NavOpen ? theme.light : theme.dark"
+        />
+        <circle
+          cx="20.9101"
+          cy="6.8555"
+          r="1.71143"
+          transform="rotate(-120 20.9101 6.8555)"
+          :fill="!NavOpen ? theme.light : theme.dark"
+        />
+        <circle cx="12" cy="1.71143" r="1.71143" :fill="!NavOpen ? theme.light : theme.dark" />
+      </g>
 </svg>
+<svg  class="moon" :class="{visible: currentTheme == 'dark'}" xmlns="http://www.w3.org/2000/svg" width="90px" height="90px" viewBox="0 0 50 50">
+  <path
+   d="M 43.81 29.354 C 43.688 28.958 43.413 28.626 43.046 28.432 C 42.679 28.238 42.251 28.198 41.854 28.321 C 36.161 29.886 30.067 28.272 25.894 24.096 C 21.722 19.92 20.113 13.824 21.683 8.133 C 21.848 7.582 21.697 6.985 21.29 6.578 C 20.884 6.172 20.287 6.022 19.736 6.187 C 10.659 8.728 4.691 17.389 5.55 26.776 C 6.408 36.163 13.847 43.598 23.235 44.451 C 32.622 45.304 41.28 39.332 43.816 30.253 C 43.902 29.96 43.9 29.647 43.81 29.354 Z"
+   :fill="theme.light"
+  />
+</svg>
+</div>
+  
 </template>
 
 <script setup>
   const props = defineProps({
-    theme: String
+    theme: Object,
+    currentTheme: String,
+    NavOpen: Boolean
     })
 </script>
+
+
+<style scoped>
+
+  svg:not(.visible) {
+    opacity: 0;
+    pointer-events: none;
+    display: none;
+  }
+  .visible {
+    opacity: 1;
+  }
+  
+
+  .nav__wrapper svg:hover circle {
+    fill: var(--main-color);
+    transition: fill ease 0.3s;
+  }
+
+  .nav__wrapper.active svg:hover circle {
+    fill: var(--main-color-hover);
+    transition: fill ease 0.3s;
+  }
+
+</style>

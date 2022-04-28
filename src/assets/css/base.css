@@ -40,7 +40,7 @@
   --font-color-alt: hsl(var(--hue-color), 7%, 14%);
   /*===Light===*/
   --second-color: hsl(42, 48%, 90%);
-  --alt-second-color: hsl(42, 10%, 80%);
+  --second-color-alt: hsl(42, 10%, 80%);
 
   /*===main color===*/
   --main-color: hsl(var(--hue-color), 78%, 91%);
@@ -96,7 +96,7 @@ body[data-theme = dark] {
   --font-color: hsl(42, 56%, 96%);
   --font-color-alt: hsl(42, 10%, 80%);
   /*===Fonts===*/
-  --second-color: hsl(var(--hue-color), 4%, 4%);
+  --second-color: hsl(var(--hue-color), 24%, 12%);
   --alt-second-color: hsl(var(--hue-color), 4%, 8%);
 }
 
@@ -117,8 +117,10 @@ body {
 /*=================Base CSS=================*/
 
 .light_font {
-  color: var(--second-color) !important;
+  color: var(--second-color);
+  transition: color linear 0.1s 0.5s;
 }
+
 
 .light-weight {
   font-weight: 300;
@@ -127,9 +129,9 @@ body {
 #app {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
-  grid-template-rows: min(150px, 15vh) auto;
+  grid-template-rows: 150px auto;
   gap: 30px;
-  grid-template-areas: ". nav nav nav nav nav nav nav ."
+  grid-template-areas: "nav nav nav nav nav nav nav nav nav"
                        ". main main main main main main main .";
 }
 
