@@ -28,6 +28,13 @@
   font-weight: 700;
 }
 
+@font-face {
+  font-family: "Gerbil";
+  src: local("Gerbil"),
+       url("../fonts/gerbil.otf") format('opentype');
+  font-weight: normal;
+}
+
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
   font-size: 16px;
@@ -36,8 +43,8 @@
   --hue-color: 254;
   --alt-hue-color: 0;
   /*===Black===*/
-  --font-color: hsl(var(--hue-color), 3%, 23%);
-  --font-color-alt: hsl(var(--hue-color), 7%, 14%);
+  --font-color-alt: hsl(var(--hue-color), 3%, 23%);
+  --font-color: hsl(var(--hue-color), 7%, 14%);
   /*===Light===*/
   --second-color: hsl(42, 48%, 90%);
   --second-color-alt: hsl(42, 10%, 80%);
@@ -57,12 +64,14 @@
   /*========Fonts========*/
   --body-font: "Argentum", sans-serif;
   --menu-title: 8.5rem;
+  --hero-title: 6rem;
   --header-section-font: 4.5rem;
   --big-font-size: 2.5rem;
   --title-card-font: 1.5rem;
   --text-font: 1rem;
   --smallest-font: 0.85rem;
-  --text-line-height: 1.5;
+  --base-line-height: 1;
+  --text-line-height: 2;
 
   /*========Fonts WEIGHT========*/
   --font-light: 300;
@@ -82,7 +91,9 @@
   --z-fixed: 100;
 
   /*========border radius========*/
-  --radius: 15px
+  --base-radius: 45px;
+  --radius: 15px;
+  --small-radius: 10px;
 
 }
 
@@ -105,7 +116,6 @@ body {
   color: var(--font-color);
   background: var(--second-color);
   transition: color 0.5s, background-color 0.5s;
-  line-height: var(--text-line-height);
   font-family: var(--body-font);
   font-size: 1rem;
   text-rendering: optimizeLegibility;
@@ -115,32 +125,58 @@ body {
 }
 
 /*=================Base CSS=================*/
+.gerbil {
+  font-family: "gerbil";
+}
 
+span.argentum {
+  font-family: 'argentum';
+}
 .light_font {
   color: var(--second-color);
   transition: color linear 0.1s 0.5s;
 }
-
+.tag {
+  margin: var(--mb-2) 0;
+}
+.tag .span {
+  position: relative;
+}
+.tag .span::after {
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  content: '';
+  height: 3px;
+  width: 100%;
+  background-color: var(--main-color-hover);
+}
 
 .light-weight {
   font-weight: 300;
 }
 
 #app {
-  display: grid;
-  grid-template-columns: repeat(9, 1fr);
-  grid-template-rows: 150px auto;
-  gap: 30px;
-  grid-template-areas: "nav nav nav nav nav nav nav nav nav"
-                       ". main main main main main main main .";
+  display: flex;
+  flex-direction: column;
 }
+
+.title__header,.logo__text {
+  font-family: "Gerbil";
+}
+
+
 
 
 
 main {
-  grid-area: main;
   width: 100%;
 }
+
+.layout-content .home > section {
+  padding: 0 calc(100vw / 9);
+}
+
 
 *,
 *::before,
@@ -155,7 +191,7 @@ html {
   scroll-behavior: smooth;
 }
 
-h1,h2,h3, h4 {
+h1, h2, h3, h4 {
   font-weight: var(--font-semi-bold);
 }
 
@@ -164,15 +200,22 @@ h1 {
 }
 
 h2 {
+  font-size: var(--hero-title);
+  line-height: var(--base-line-height);
+}
+
+h3 {
   font-size: var(--header-section-font);
 }
 
 h4 {
   font-size: var(--menu-title);
 }
+
 p,a {
   font-size: 1rem;
   color: var(--font-color);
+  line-height: var(--text-line-height);
 }
 
 ul {

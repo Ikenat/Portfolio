@@ -5,42 +5,45 @@ import NavIcon from './icons/NavIcon.vue'
 import CloseIcon from './icons/CloseIcon.vue'
 import { reactive, ref } from '@vue/reactivity'
 import { useSizeStore } from '../stores/size'
+import { useRouteQuery } from '@vueuse/router'
+import { useThemeStore } from '../stores/theme'
 
-const SizeStore = useSizeStore()
+const themeStore = useThemeStore();
+const SizeStore = useSizeStore();
 
-console.log(SizeStore.sizeScreen);
-
-const sizeScreen = SizeStore.sizeScreen > 1240 ? 'screen': 'mobile';
-
-console.log(sizeScreen);
+let props = defineProps(['path']);
 let links = reactive([
   {
     name: "About me",
-    to:"#"
+    to:"/#about"
   },
   {
     name: "Project",
-    to:"#"
+    to:"/projets"
   },
   {
     name: "Contact",
-    to:"#"
+    to:"/#contact"
   },
   {
     name: "Source Code",
-    to:"#"
+    to:"#",
+    blank: true
   },
   {
     name: "Github",
-    to:"#"
+    to:"#",
+    blank: true
   },
   {
     name: "Email@gmail.com",
-    to:"#"
+    to:"#",
+    blank: true
   },
   {
     name: "LinkedIn",
-    to:"#"
+    to:"#",
+    blank: true
   },
 
 ])
@@ -53,19 +56,21 @@ let themeIcon = reactive({
 let NavigationOpen = ref(false)
 
 const switchTheme = () => {
-            let body = document.body
-            let theme = body.getAttribute("data-theme") 
-            switch(theme) {
-                    case "dark" :
-                        body.setAttribute("data-theme", "Light");
-                        curTheme.value = 'light'
-                        break
-                    default: 
-                        body.setAttribute("data-theme", "dark");
-                        curTheme.value = 'dark'
-                        break;
-                }
-        };
+    themeStore.switchTheme();
+    console.log(themeStore.isDark);
+    let body = document.body
+    let theme = body.getAttribute("data-theme") 
+    switch(theme) {
+      case "dark" :
+        body.setAttribute("data-theme", "Light");
+        curTheme.value = 'light'
+      break
+      default: 
+        body.setAttribute("data-theme", "dark");
+        curTheme.value = 'dark'
+      break;
+    }
+};
 
 const toggleNav = () => {
   if (!NavigationOpen.value) {
@@ -96,6 +101,18 @@ const limitArray = (arr, to = 3, start = 0) => {
     return arr.slice(start, to)
 }
 
+const isLight = () => {
+  switch (curTheme.value) {
+    case 'dark':
+        return true; 
+      break;
+  
+    default:
+      return props.path == '/' && !NavigationOpen.value; 
+      break;
+  }
+}
+
 </script>
 
 <template>
@@ -103,17 +120,17 @@ const limitArray = (arr, to = 3, start = 0) => {
     <div class="test">
       <div class="button__wrapper">
       <header class="logo">
-      <a href="/"><h1 class="logo__text light_font delay">Julien D</h1></a>
+        <router-link to="/" class="logo__text delay"><h1 class="light_font">Julien.D</h1></router-link>
     </header>
     <ul class="navigation">
-      <li v-if="sizeScreen === 'screen'" class="navButton">
+      <li v-if="SizeStore.isDesktop" class="navButton">
         <button class="light-svg">
-          <ThemeIcon :currentTheme="curTheme" :NavOpen="NavigationOpen" :theme="themeIcon" @click="switchTheme"/>
+          <ThemeIcon :currentTheme="curTheme" :NavOpen="NavigationOpen" :theme="isLight() ? themeIcon.light : themeIcon.dark" @click="switchTheme"/>
         </button>
       </li>
-      <li v-if="sizeScreen === 'screen'" class="navButton">
+      <li v-if="SizeStore.isDesktop" class="navButton">
         <a href="https://github.com/Ikenat" target="_blank">
-          <Github :currentTheme="curTheme" :NavOpen="NavigationOpen" :theme="themeIcon" />
+          <Github :currentTheme="curTheme" :NavOpen="NavigationOpen" :theme="isLight() ? themeIcon.light : themeIcon.dark" />
         </a>
       </li>
       <li class="navButton">
@@ -132,16 +149,28 @@ const limitArray = (arr, to = 3, start = 0) => {
         <ul class="nav-ul__wrapper">
           <div class="link__wrapper-left">
             <li v-for="(link, index) in limitArray(links, 4)" :key="index" class="link__wrapper">
-              <a class="link" :href="link.to">{{link.name}}</a>
+              <router-link class="link" :to="link.to" @click="toggleNav" :target="[link?.blank ? '_blank' : '']">{{link.name}}</router-link>
             </li>
           </div>
           <div class="link__wrapper-right">
             <li v-for="(link, index) in limitArray(links, 7, 4)" :key="index" class="link__wrapper">
-              <a class="link" :href="link.to">{{link.name}}</a>
+              <router-link class="link" to="link.to">{{link.name}}</router-link>
             </li>
           </div>
         </ul>
       </nav>
+      <div v-if="!SizeStore.isDesktop" class="button__wrapper-hidden">
+        <li class="navButton">
+        <button class="light-svg">
+          <ThemeIcon :currentTheme="curTheme" :NavOpen="NavigationOpen" :theme="themeIcon" @click="switchTheme"/>
+        </button>
+      </li>
+      <li class="navButton">
+        <a href="https://github.com/Ikenat" target="_blank">
+          <Github :currentTheme="curTheme" :NavOpen="NavigationOpen" :theme="themeIcon" />
+        </a>
+      </li>
+      </div>
     </div>
     </div>
   </div>

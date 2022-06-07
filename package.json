@@ -11,10 +11,16 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@vueuse/core": "^8.6.0",
+    "@vueuse/router": "^8.6.0",
+    "aws-sdk": "^2.1140.0",
+    "axios": "^0.27.2",
     "gsap": "^3.10.3",
     "pinia": "^2.0.13",
+    "requirejs": "^2.3.6",
     "three": "^0.139.2",
-    "vue": "^3.2.33"
+    "vue": "^3.2.33",
+    "vue-router": "^4.0.15"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.0",

@@ -1,23 +1,23 @@
 <script setup>
 
-import { onMounted } from 'vue'
-import Hero from './components/hero.vue'
-import Home from './components/Home.vue'
+import { watchEffect, onMounted, ref, computed, onUpdated } from 'vue';
+import Home from './pages/Home.vue'
 import Navigation from './components/Navigation.vue'
+import FooterInformation from './components/Footer.vue'
 import { useSizeStore } from './stores/size'
+import { useThemeStore } from './stores/theme'
 
 import ScrollToTop from './components/icons/ScrollToTop.vue'
 
-
+const themeStore = useThemeStore();
 const SizeStore = useSizeStore();
 
-window.addEventListener('resize', () => {
-  SizeStore.resize(window.innerWidth);
-})
+
 
 onMounted(() => {
     let body = document.body
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    console.log(themeStore.isDark);
+    if ((window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) || themeStore.isDark) {
     // dark mode
     body.setAttribute("data-theme", "dark");
   } else {
@@ -27,31 +27,59 @@ onMounted(() => {
 });
 
 
+
+
+const progress = ref(0)
+
+watchEffect(async () => {
+    const handleScroll = () => {
+        progress.value = window.scrollY
+    }
+
+    window.addEventListener("scroll", handleScroll)
+
+    return () => {
+        window.removeEventListener("scroll", handleScroll)
+    }
+})
+
+
+
+
+const translateY = computed(() => {
+    return `transform: translateY(${ progress.value * 0.5 }px)`
+})
+
+
 </script>
 
 <template id="top">
-  <Navigation />
+  <Navigation :path="$route.path"/>
 
   <main>
-    <Hero class="panel" />
-    <Home class="panel" />
+    <div class="layout-content">
+      <router-view></router-view>
+    </div>
   </main>
+  <FooterInformation />
 
   <div class="scrollToTop">
     <a href="#top">
       <ScrollToTop />
     </a>
   </div>
-  <div class="canvas">
+  <div class="canvas" v-bind:style="translateY" v-if="$route.path == '/'">
+    <img 
+            src="./assets/img/hero-banner.png" 
+            alt="reazz"
+            class="parallax"
+        >
   </div>
 </template>
 
 <style>
 @import './assets/css/base.css';
 
-body {
-  height: 500vh;
-}
 
   .canvas {
 
@@ -61,13 +89,15 @@ body {
 
   width: 100vw;
   height: 100vh;
-  z-index: -1;
-
-  background-image: url('./src/assets/img/hero-banner.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-
+  z-index: -10;
 }
+
+.parallax {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    }
 
 .scrollToTop {
   position: fixed;
