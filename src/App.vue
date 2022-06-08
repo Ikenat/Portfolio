@@ -1,6 +1,6 @@
 <script setup>
 
-import { watchEffect, onMounted, ref, computed, onUpdated } from 'vue';
+import { watchEffect, onMounted, ref, computed, onBeforeMount, watch } from 'vue';
 import Home from './pages/Home.vue'
 import Navigation from './components/Navigation.vue'
 import FooterInformation from './components/Footer.vue'
@@ -12,9 +12,20 @@ import ScrollToTop from './components/icons/ScrollToTop.vue'
 const themeStore = useThemeStore();
 const SizeStore = useSizeStore();
 
+let test = ref(SizeStore.isDesktop)
 
+
+onBeforeMount(() => {
+  let app = document.getElementById('app');
+    if (SizeStore.isDesktop) {
+      app.classList.add('xl');
+    } else {
+      app.classList.remove('xl');
+    }
+})
 
 onMounted(() => {
+  ChangeScreenSize();
     let body = document.body
     console.log(themeStore.isDark);
     if ((window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) || themeStore.isDark) {
@@ -26,7 +37,9 @@ onMounted(() => {
 
 });
 
-
+const ChangeScreenSize = watch(test, (value, oldValue) => {
+  console.log(value);
+})
 
 
 const progress = ref(0)

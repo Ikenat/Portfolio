@@ -3,6 +3,9 @@
         flex-direction: row;
         height: 100vh;
     }
+    #about2 {
+        margin: 10rem 0;
+    }
 
     .pagination ul li button{
         width: 40px;
@@ -14,7 +17,8 @@
     }
 
     .relative-img{
-        height: 70vh;
+        height: 50vh;
+        width: 100%;
     }
 
     .wrapper.left {
@@ -49,4 +53,111 @@
         width: 80%;
         height: 100%;
     }
+
+    /*STACK*/
+    .stack__wrapper {
+        flex-direction: row;
+        gap: 100px;
+        height: 70vh;
+    }
+    .stackNav__wrapper {
+        height: 100%;
+        width: min-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .Stackicon:not(:last-child):after,
+    .Stackicon:not(:first-child)::before  {
+      width: 10px;
+      height: calc((70vh - (80px * 4)) / 6);
+    }
+
+    .Stackicon:not(:last-child)::after {
+        transform: translateX(-50%) !important;
+        transform-origin: top;
+        top: calc(100%);
+        left: 50% !important;
+      }
+    .Stackicon:not(:first-child)::before {
+        transform: translateX(50%) !important;
+        transform-origin: bottom;
+        bottom: calc(100%);
+        right: 50% !important;
+    }
+
+    .Front {
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: min(200px, 15vh) auto  auto min(200px, 15vh);
+      grid-template-areas: ". . Learning"
+                          "vuejs nuxt typescript"
+                          "vuejs nuxt typescript"
+                          ". . .";
+  
+    }
+    .Learning {
+        grid-area: Learning;
+        display: flex;
+        align-items: center;
+        }
+    .Front div.Nuxtjs {
+        grid-area: nuxt;
+    }
+    .Front div.Vuejs {
+        grid-area: vuejs;
+    }
+    .Front div.typescript {
+        grid-area: typescript;
+    }
+
+    /*PROJECT */
+    .Project-list-item .img-wrapper {
+        width: 600px;
+    }
+    .container .text p {
+        font-size: var(--header-section-font);
+    }
+    #Project .Project__header {
+        justify-content: flex-start;
+    }
+
+    .Model {
+        width: fit-content;
+    }
+
+    .contact-content form {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .contact-content form p:not(.name, .email, .submit) {
+        grid-column: span 2;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .relative-img{
+        width: 100%;
+        min-height: 400px;
+    }
+
+    .stack__wrapper {
+        display: flex;
+        gap: 100px;
+    }
+
+    .Project-list-item,.Project-list-item:nth-child(2n) {
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        max-width: 100%;
+    }
+
+    .Project-list-item .img-wrapper {
+        width: 100%;
+    }
+
+    .Project-list-item .item-content {
+        margin: var(--mb-1) 0;
+    }
+    
+
 }

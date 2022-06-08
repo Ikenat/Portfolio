@@ -46,6 +46,7 @@ export default class Gl {
   }
 
   resize() {
+    console.log('on resize', this.canva.clientWidth);
     let width = this.canva.clientWidth;
     let height = this.canva.clientHeight;
 

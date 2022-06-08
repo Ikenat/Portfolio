@@ -1,12 +1,10 @@
 import AWS from 'aws-sdk'
-import 'dotenv/config'
-
 function sendEmail(name, email, entreprise, message) {
   
 
 AWS.config.update({
-  accessKeyId: import.meta.env.VITE_AWS_ACCESS_KEY_ID,
-  secretAccessKey: import.meta.env.ITE_AWS_SECRET_KEY,
+  accessKeyId: "AKIAU2C7GXUGZG34E53G",
+  secretAccessKey: "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",
   region: 'eu-west-3'
 })
 

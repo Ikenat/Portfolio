@@ -614,6 +614,7 @@ Ut sit quis varius massa venenatis eget tincidunt. A tristique metus sit in adip
 
     #about2 .text {
       position: relative;
+      width: 100%;
     }
 
     #about2 .text > p {
@@ -622,8 +623,8 @@ Ut sit quis varius massa venenatis eget tincidunt. A tristique metus sit in adip
   .canvasBlob {
     z-index: 1;
     position: absolute;
-    width: 500px;
-    height: 500px;
+    width: auto;
+    height: auto ;
     background: transparent;
     right: 0;
   }

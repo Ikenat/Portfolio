@@ -162,12 +162,12 @@ const isLight = () => {
       <div v-if="!SizeStore.isDesktop" class="button__wrapper-hidden">
         <li class="navButton">
         <button class="light-svg">
-          <ThemeIcon :currentTheme="curTheme" :NavOpen="NavigationOpen" :theme="themeIcon" @click="switchTheme"/>
+          <ThemeIcon :currentTheme="curTheme" :NavOpen="NavigationOpen" :theme="isLight() ? themeIcon.light : themeIcon.dark" @click="switchTheme"/>
         </button>
       </li>
       <li class="navButton">
         <a href="https://github.com/Ikenat" target="_blank">
-          <Github :currentTheme="curTheme" :NavOpen="NavigationOpen" :theme="themeIcon" />
+          <Github :currentTheme="curTheme" :NavOpen="NavigationOpen" :theme="isLight() ? themeIcon.light : themeIcon.dark" />
         </a>
       </li>
       </div>

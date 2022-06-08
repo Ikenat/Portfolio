@@ -20,6 +20,10 @@
 
 .wrapper.right {
     width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .wrapper.right ul {
@@ -29,8 +33,8 @@
 
 .relative-img{
     position: relative;
-    width: auto;
-    height: 50vh;
+    width: 80%;
+    min-height: 600px;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
@@ -235,15 +239,16 @@
 
   .stack__wrapper {
       display: flex;
-      gap: 100px;
-      height: 70vh;
+      flex-direction: column;
+      gap: 30px;
   }
 
   .stackNav__wrapper {
-      height: 100%;
+      height: inherit;
+      width: 100%;
 
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       justify-content: space-between;
   }
 
@@ -271,26 +276,29 @@
   .Stackicon:not(:last-child):after,
   .Stackicon:not(:first-child)::before  {
       content: '';
-      width: 10px;
-      height: calc((70vh - (80px * 4)) / 6);
+      width: calc((((100vw - 2 *(100vw / 9)) - (80px * 4)) / 6));
+      height: 10px;
       background-color: var(--main-color-dark);
 
       position: absolute;
-      left: 50%;
 
-      transform: translateX(-50%);
       z-index: -1;
   }
   .Stackicon:not(:last-child)::after {
-    transform-origin: top;
-    top: calc(100%);
+    transform-origin: left;
+    left: calc(100%);
   }
   .Stackicon:not(:first-child)::before {
-    transform-origin: bottom;
-    bottom: calc(100%);
+    transform-origin: right;
+    right: calc(100%);
   }
+  
   .Stackicon.active::after, .Stackicon.active::before {
     background-color: var(--main-color);
+}
+.Stackicon:hover:not(:last-child,.active):after,
+.Stackicon:hover:not(:first-child,.active):before {
+    transition: background ease 0.3s;
 }
 
 .Stackicon:hover:not(:last-child,.active):after,
@@ -303,13 +311,9 @@
     height: 100%;
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: min(200px, 15vh) auto  auto min(200px, 15vh);
+    grid-template-columns: 1fr;
+    grid-template-rows:auto  auto auto auto;
     gap: 20px;
-    grid-template-areas: ". . Learning"
-                        "vuejs nuxt typescript"
-                        "vuejs nuxt typescript"
-                        ". . .";
 
   }
   .Back {
@@ -355,28 +359,32 @@
     gap: 20px;
 
 } 
-
-.Learning {
-    grid-area: Learning;
+    .stack__content .stack .color {
+        padding: var(--mb-1-5);
+        height: 100%;
+        border-radius: var(--base-radius);
+    }
+    #app:not(.xl) .Learning {
     display: flex;
     align-items: center;
-}
+    grid-row: 3 / span 1;
+    grid-column: span 1;
+    }
 
-  .stack__content .stack .color {
-    padding: var(--mb-1-5);
-    height: 100%;
-    border-radius: var(--base-radius);
-}
+    
+    #app:not(.xl) .Front div.Vuejs {
+        grid-row: 1 / span 1;
+        grid-column: span 1;
+    }
+    #app:not(.xl) .Front div.Nuxtjs {
+        grid-column: span 1;
+        grid-row: 2 / span 1;
+    }
 
-.Front div.Vuejs {
-    grid-area: vuejs;
-}
-.Front div.Nuxtjs {
-    grid-area: nuxt;
-}
-.Front div.typescript {
-    grid-area: typescript;
-}
+    #app:not(.xl) .Front div.typescript {
+        grid-column: span 1;
+        grid-row: 4 / span 1;
+    }
 
 .Back div.php {
     grid-area: php;
@@ -484,7 +492,7 @@
 
 
 #about2 {
-    margin: 10rem 0;
+    margin: 5rem 0;
     
 }
 
@@ -536,6 +544,7 @@
     display: flex;
     min-height: 70vh;
     margin-bottom: 5rem;
+    justify-content: center;
 }
 
 #Project .Project__header p{
@@ -551,6 +560,7 @@
 }
 
 .Model {
+    width: 100%;
     position: absolute;
     right: 0;
     height: 100%;
@@ -567,6 +577,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 100px;
 }
 
 .Project-list-item {
@@ -584,13 +595,16 @@
 }
 
 .Project-list-item .img-wrapper {
-    width: 600px;
+    min-width: 400px;
     height: 700px;
     overflow: hidden;
 }
 
 .Project-list-item img{
     width: 100%;
+    aspect-ratio: 9 / 16;
+    object-fit: cover;
+    object-position: top;
 }
 
 .Project-list-item .item-content {
@@ -604,11 +618,11 @@
     line-height: 1.5;
 }
 
-.Project-list-item:nth-child(2n) .item-content__title {
+#app:is(.xl,.lg) .Project-list-item:nth-child(2n) .item-content__title {
     transform: translateX(100px);
 }
 
-.Project-list-item:not(:nth-child(2n)) .item-content__title {
+#app:is(.xl, .lg) .Project-list-item:not(:nth-child(2n)) .item-content__title {
     transform: translateX(-100px);
 }
 
@@ -634,8 +648,8 @@
     gap: 70px;
     min-height: 90vh;
     background-color: var(--second-color);
-    width: 100vw;
-    padding: var(--mb-2) 0;
+    width: initial;
+    padding: 2rem calc(100vw / 9);
 }
 
 #contact .Model-contact {
@@ -651,6 +665,7 @@
     transform: translateY(-50px);
 }
 .contact-content {
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -662,11 +677,11 @@
 }
 .contact-content form {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
     gap: 30px;
 }
-.contact-content form p:not(.name, .email, .submit) {
-    grid-column: span 2;
+.contact-content form p {
+    grid-column: span 1;
 }
 
 .contact-content form p:not(.submit) {

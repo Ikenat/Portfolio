@@ -11,10 +11,6 @@ import PlayIcon from './icons/PlayArrow.vue'
           <span class="argentum light-weight">Developper</span><br>
           <span class="argentum">Portfolio</span>
         </h2>
-        <button class="play3d">
-          <PlayIcon />
-          <span class="logo__text">3D portfolio</span>
-        </button>
       </div>
       <a href="#about" class="scrollMore">
         <ScrollIcon color="#fffffe"/>

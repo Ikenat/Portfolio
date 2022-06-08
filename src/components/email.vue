@@ -1,10 +1,12 @@
 <script setup>
 import { ref } from '@vue/reactivity';
+import { useSizeStore } from '../stores/size';
 import axios from 'axios'
 import Title from './Title.vue';
 import ScrollIcon from './icons/scrollIcon.vue'
 import sendEmail from '../functions/ses-send-email.js'
 
+const SizeStore = useSizeStore();
 
 let isEmailValide = ref(false);
 const name = ref("");
@@ -35,7 +37,7 @@ const ValidateEmail = (e) => {
 
 <template>
     <section id="contact">
-      <div class="Model-contact">
+      <div class="Model-contact" v-if="SizeStore.isDesktop">
           <img src="../assets/img/thorus.png" alt="thorus">
           <a href="#footer" class="scrollMore toContact">
             <ScrollIcon color="#33272A" />

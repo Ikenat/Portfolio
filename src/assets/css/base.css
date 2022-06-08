@@ -63,15 +63,14 @@
 
   /*========Fonts========*/
   --body-font: "Argentum", sans-serif;
-  --menu-title: 8.5rem;
-  --hero-title: 6rem;
-  --header-section-font: 4.5rem;
+  --menu-title: 5rem ;
+  --hero-title: 4rem;
+  --header-section-font: 2.5rem;
   --big-font-size: 2.5rem;
   --title-card-font: 1.5rem;
   --text-font: 1rem;
-  --smallest-font: 0.85rem;
-  --base-line-height: 1;
-  --text-line-height: 2;
+  --smallest-font: 0.80rem;
+  --text-line-height: 1.5;
 
   /*========Fonts WEIGHT========*/
   --font-light: 300;

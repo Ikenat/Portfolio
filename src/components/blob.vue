@@ -9,6 +9,12 @@
         height: 500px; 
         background: transparent;   
     }
+    #app:not(.xl) .webgl.blob {
+        width: 200px;
+        height: 200px; 
+        background: transparent;   
+    }
+
 </style>
 
 <script setup>

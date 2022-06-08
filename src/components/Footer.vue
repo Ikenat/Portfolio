@@ -96,7 +96,7 @@ const translateY = computed(() => {
         background-repeat: no-repeat;
         background-size: cover;
         display: grid;
-        place-items: self-end self-end;
+        place-items: self-end center;
         z-index: -10;
     }
 
@@ -104,15 +104,14 @@ const translateY = computed(() => {
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%;
+        width: inherit;
         height: 100%;
         object-fit: cover;
+        object-position: bottom;
         z-index: -1;
     }
 
-    h2 {
-        padding: 0 calc(100vw / 9);
-    }
+    
 
     h5, h2 {
         font-family: "gerbil";
@@ -127,8 +126,8 @@ const translateY = computed(() => {
 
     .informations-wrapper {
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        grid-template-rows: repeat(2, auto);
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(5, auto);
     }
     p.title {
         color: var(--second-color-alt);
@@ -138,14 +137,11 @@ const translateY = computed(() => {
         grid-column: 1 / span 1;
         grid-row: 1 / span 1;
     }
-    p.title.localisation {
-        grid-column: 5 / span 1;
-        grid-row: 1 / span 1;
-    }
+    
 
     .information {
         grid-column: span 1;
-        grid-row: 2/2;
+        grid-row: span 1;
         border: 2px solid var(--second-color);
         border-bottom: none;
         border-left: none;
@@ -166,4 +162,26 @@ const translateY = computed(() => {
     .information:last-child {
         border-right: none;
     }
+
+    @media screen and (min-width: 1250px) {
+        footer {
+            place-items: self-end self-end;
+        }
+        h2 {
+        padding: 0 calc(100vw / 9);
+        }
+        .informations-wrapper {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(2, auto);
+        }
+        .information {
+            grid-row: 2 / span 1;
+        }
+        p.title.localisation {
+        grid-column: 5 / span 1;
+        grid-row: 1 / span 1;
+        }
+    }
+
 </style>>
